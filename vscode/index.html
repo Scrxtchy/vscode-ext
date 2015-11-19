@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+</head>
+
+<body>
+	<script>
+		window.http = new XMLHttpRequest();
+		console.log('Thanks for Open Source software Microsoft!!');
+		window.onload = function () {
+		load();
+		
+		};
+		
+		
+		function load(){
+		
+		var json = {
+			filters: [
+				{
+					criteria: [
+						{
+							filterType: 1,
+							value: "vscode"
+						}
+					]
+				}
+			],
+			flags: 1
+		};
+		http.open("POST", "https://app.market.visualstudio.com/_apis/public/gallery/extensionquery?api-version=3.0-preview.1", true);
+		
+			
+
+		
+		document.getElementById("container").innerHTML = "";
+			http.onreadystatechange = function() {
+			    if (http.readyState == 4 && http.status == 200) {
+			        var myArr = JSON.parse(http.responseText);
+					myArr = myArr.results[0].extensions;
+			        forEfnc(myArr);
+			    }
+			}
+		
+		
+		http.setRequestHeader("Content-type", "application/json");
+		http.setRequestHeader("Content-length", json.length);
+		
+		http.send(JSON.stringify(json));
+		}
+		
+				
+		function forEfnc(arr) {
+     		   arr.forEach(function (ext) {
+					input = "<div id='" + ext.extensionName + "'><h2>" + ext.displayName + "</h2><h4>" + ext.shortDescription + "</h4>" + " by " + ext.publisher.displayName + " | ";
+					input += "Versions: ";
+					ext.versions.forEach(function (dl){
+						time = new Date(dl.lastUpdated);
+						input += "<a title='" + time.toLocaleString() + ' | ' + timeDifference(time)+ "'href='https://app.market.visualstudio.com/_apis/public/gallery/extensions/" + ext.extensionId + "/" + dl.version + "/assets/Microsoft.VisualStudio.Services.VSIXPackage'>" + dl.version + "</a> | ";
+					}, this);
+					input += "Last updated: " + timeDifference(new Date(ext.lastUpdated))+"<hr>"
+					document.getElementById("container").innerHTML += input;
+     		   }, this);
+		}
+		
+		function timeDifference(inp){
+			
+			var timeSince = (new Date) - inp,
+			    secs = ~~(timeSince / 1000),
+			    mins = ~~(secs / 60),
+			    hrs = ~~(mins / 60),
+			    days = ~~(hrs / 24);
+			return days + ' days ' + hrs % 24 + ' hours ago';
+		}
+		
+	</script>
+
+
+	<h1>Code Extentions</h1>
+	<hr>
+	<div id="container"></div>
+
+
+
+
+
+</body>
+
+</html>
