@@ -10,6 +10,35 @@
 		width: 100px;
 		max-height: 100px;
 	}
+	
+	.Languages {
+	background-color: lightblue;
+	}
+	.Themes {
+		background-color: lightgreen;
+	}
+	.Snippets{
+		background-color: pink;
+	}
+	.Linters{
+		background-color: lightyellow;
+	}
+	.Other{
+		background-color: lightsteelblue;
+	}
+
+	.Debuggers{
+		background-color: lightgoldenrodyellow;
+	}
+	
+	h2, hr {
+		margin: 0;
+	}
+
+	h2{
+		padding-top: 5px;
+	}
+
 	</style>
 </head>
 
@@ -25,19 +54,7 @@
 		
 		function load(){
 		
-		var json = {
-			filters: [
-				{
-					criteria: [
-						{
-							filterType: 1,
-							value: "vscode"
-						}
-					]
-				}
-			],
-			flags: 1
-		};
+		var json = {filters:[{criteria:[{filterType:1,value:"vscode"}]}],flags:31};
 		http.open("POST", "https://app.market.visualstudio.com/_apis/public/gallery/extensionquery?api-version=3.0-preview.1", true);
 		
 			
@@ -61,8 +78,8 @@
 		
 				
 		function forEfnc(arr) {
-     		   arr.forEach(function (ext) {
-					input = "<div id='" + ext.extensionName + "'><a href='https://marketplace.visualstudio.com/items/" + ext.publisher.publisherName + "." + ext.extensionName +"'><img class='logo' src='https://marketplace.visualstudio.com/_apis/public/gallery/publisher/" + ext.publisher.publisherName + "/extension/" +  ext.extensionName + "/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default'></a><h2>" + ext.displayName + "</h2><h4>" + ext.shortDescription + "</h4>" + " by " + ext.publisher.displayName + " | ";
+				arr.forEach(function (ext) {
+					input = "<div class='" + getCat(ext.categories) + "' id='" + ext.extensionName + "'><a href='https://marketplace.visualstudio.com/items/" + ext.publisher.publisherName + "." + ext.extensionName +"'><img class='logo' src='https://marketplace.visualstudio.com/_apis/public/gallery/publisher/" + ext.publisher.publisherName + "/extension/" +  ext.extensionName + "/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default'></a><h2>" + ext.displayName + "</h2><h4>" + ext.shortDescription + "</h4>" + " by " + ext.publisher.displayName + " | ";
 					input += "Versions: ";
 					ext.versions.forEach(function (dl){
 						time = new Date(dl.lastUpdated);
@@ -71,6 +88,15 @@
 					input += "Last updated: " + timeDifference(new Date(ext.lastUpdated))+"<hr>"
 					document.getElementById("container").innerHTML += input;
      		   }, this);
+		}
+		
+		function getCat(arr) {
+			if (arr != null) {
+				return arr[0];
+				}
+			else {
+				return 'Other';
+				}
 		}
 		
 		function timeDifference(inp){
