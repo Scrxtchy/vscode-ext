@@ -1,3 +1,6 @@
+[html ver](https://scrxtchy.github.io/vscode/)  
+[source](https://github.com/Scrxtchy/Scrxtchy.github.io/blob/master/vscode/index.html)
+
 A few weeks ago I while going through Visual Studio Code's source, I stumbled across an extention gallery support before any proper announcement.
 I built this page to list all extentions outside of the application.
 Any improvements can be PR'd, I really don't care.
