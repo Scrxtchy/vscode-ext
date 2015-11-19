@@ -48,7 +48,6 @@
 			    if (http.readyState == 4 && http.status == 200) {
 			        var myArr = JSON.parse(http.responseText);
 					myArr = myArr.results[0].extensions;
-					console.log(myArr);
 			        forEfnc(myArr);
 			    }
 			}
@@ -63,7 +62,7 @@
 				
 		function forEfnc(arr) {
      		   arr.forEach(function (ext) {
-					input = "<div id='" + ext.extensionName + "'><img class='logo' src='https://marketplace.visualstudio.com/_apis/public/gallery/publisher/" + ext.publisher.publisherName + "/extension/" +  ext.extensionName + "/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default'><h2>" + ext.displayName + "</h2><h4>" + ext.shortDescription + "</h4>" + " by " + ext.publisher.displayName + " | ";
+					input = "<div id='" + ext.extensionName + "'><a href='https://marketplace.visualstudio.com/items/" + ext.publisher.publisherName + "." + ext.extensionName +"'><img class='logo' src='https://marketplace.visualstudio.com/_apis/public/gallery/publisher/" + ext.publisher.publisherName + "/extension/" +  ext.extensionName + "/latest/assetbyname/Microsoft.VisualStudio.Services.Icons.Default'></a><h2>" + ext.displayName + "</h2><h4>" + ext.shortDescription + "</h4>" + " by " + ext.publisher.displayName + " | ";
 					input += "Versions: ";
 					ext.versions.forEach(function (dl){
 						time = new Date(dl.lastUpdated);
